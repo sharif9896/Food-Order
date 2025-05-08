@@ -8,7 +8,7 @@ const FetchProducts = () => {
   const dispatch = useDispatch();
   const fetchfood = async (req, res) => {
     try {
-      const response = await axios.get(`${BACKEND_URL}api/product//foodlists`);
+      const response = await axios.get(`${BACKEND_URL}api/product/foodlists`);
       const data = response.data.foodlists;
       dispatch(itemAction.setItems(data));
     } catch (e) {
