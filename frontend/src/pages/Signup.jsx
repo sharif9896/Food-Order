@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaEnvelope, FaLock, FaUser, FaSignInAlt } from "react-icons/fa";
 import { BACKEND_URL } from "../../utils/utils";
@@ -11,6 +11,7 @@ const Signup = () => {
   const [password, setpassword] = useState("");
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate()
   const hadlesubmit = async (event) => {
     event.preventDefault();
     if (!name || !email || !password) {
@@ -25,6 +26,7 @@ const Signup = () => {
       });
       console.log(response.data);
       toast.success(response.data.message);
+      navigate("/Login");
       setTimeout(() => {
         window.location.href = "/Login";
       }, 1000);
