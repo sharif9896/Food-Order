@@ -30,9 +30,6 @@ const Login = () => {
       );
       console.log(setuser);
       navigate("/");
-      // setTimeout(() => {
-      //   window.location.href = "/";
-      // }, 2000);
     } catch (e) {
       console.log(e);
       setErrors(e.response.data.error);
