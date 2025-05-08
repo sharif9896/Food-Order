@@ -127,6 +127,18 @@ const FoodOrder = () => {
         console.log(foodss.data);
         toast.success(foodss.data.message);
         window.location.href = "/";
+
+        try {
+          const response = await axios.get(
+            `http://localhost:3956/api/user/logout`
+          );
+          // toast.success(response.data.message);
+          localStorage.removeItem("user");
+          // setIsLoggedIn(false);
+        } catch (error) {
+          console.log("Error in logging out ", error);
+          // toast.error(error.response.data.error);
+        }
       };
       meth();
       console.log("Order placed:", orderDetails);
