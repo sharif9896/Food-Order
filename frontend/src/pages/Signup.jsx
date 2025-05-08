@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaEnvelope, FaLock, FaUser, FaSignInAlt } from 'react-icons/fa';
+import { FaEnvelope, FaLock, FaUser, FaSignInAlt } from "react-icons/fa";
 import { BACKEND_URL } from "../../utils/utils";
 
 const Signup = () => {
@@ -18,119 +18,115 @@ const Signup = () => {
       return;
     }
     try {
-      const response = await axios.post(
-        `${BACKEND_URL}api/user/signup`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${BACKEND_URL}api/user/signup`, {
+        name,
+        email,
+        password,
+      });
       console.log(response.data);
       toast.success(response.data.message);
       setTimeout(() => {
         window.location.href = "/Login";
-      }, 2000);
+      }, 1000);
     } catch (e) {
-        console.log(e);
-        toast.error(response.data.message);
+      console.log(e);
+      setErrors(e.response.data.error);
+      toast.error(e.response.data.error);
     }
   };
   return (
     <>
-    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-orange-600 mb-2">
-            {/* FreshBites Delivery */}
-          </h1>
-          <h2 className="text-xl text-gray-600">Create a new account</h2>
-        </div>
-
-        <form onSubmit={(e) => hadlesubmit(e)} className="space-y-6">
-          <div>
-            <label className="block text-gray-700 mb-2 font-medium">
-              Full Name
-            </label>
-            <div className="relative">
-              <FaUser className="absolute top-3 left-3 text-gray-400" />
-              <input
-                type="text"
-                className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                  errors.name ? 'border-red-500' : 'border-gray-300'
-                } focus:outline-none focus:ring-2 focus:ring-orange-500`}
-                placeholder="Enter your full name"
-                            value={name}
-            onChange={(e) => setname(e.target.value)}
-              />
-            </div>
-            {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-            )}
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-orange-600 mb-2">
+              {/* FreshBites Delivery */}
+            </h1>
+            <h2 className="text-xl text-gray-600">Create a new account</h2>
           </div>
 
-          <div>
-            <label className="block text-gray-700 mb-2 font-medium">
-              Email
-            </label>
-            <div className="relative">
-              <FaEnvelope className="absolute top-3 left-3 text-gray-400" />
-              <input
-                type="email"
-                className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
-                } focus:outline-none focus:ring-2 focus:ring-orange-500`}
-                placeholder="Enter your email"
-                            value={email}
-            onChange={(e) => setemail(e.target.value)}
-              />
+          <form onSubmit={(e) => hadlesubmit(e)} className="space-y-6">
+            <div>
+              <label className="block text-gray-700 mb-2 font-medium">
+                Full Name
+              </label>
+              <div className="relative">
+                <FaUser className="absolute top-3 left-3 text-gray-400" />
+                <input
+                  type="text"
+                  className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
+                    errors[0] ? "border-red-500" : "border-gray-300"
+                  } focus:outline-none focus:ring-2 focus:ring-orange-500`}
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setname(e.target.value)}
+                />
+              </div>
+              {errors[0] && (
+                <p className="text-red-500 text-sm mt-1">{errors[0]}</p>
+              )}
             </div>
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
-          </div>
 
-          <div>
-            <label className="block text-gray-700 mb-2 font-medium">
-              Password
-            </label>
-            <div className="relative">
-              <FaLock className="absolute top-3 left-3 text-gray-400" />
-              <input
-                type="password"
-                className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                  errors.password ? 'border-red-500' : 'border-gray-300'
-                } focus:outline-none focus:ring-2 focus:ring-orange-500`}
-                placeholder="Enter your password"
-                            value={password}
-            onChange={(e) => setpassword(e.target.value)}
-              />
+            <div>
+              <label className="block text-gray-700 mb-2 font-medium">
+                Email
+              </label>
+              <div className="relative">
+                <FaEnvelope className="absolute top-3 left-3 text-gray-400" />
+                <input
+                  type="email"
+                  className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } focus:outline-none focus:ring-2 focus:ring-orange-500`}
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setemail(e.target.value)}
+                />
+              </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-            )}
-          </div>
 
-          <button
-          onClick={()=>setIsSubmitting(true)}
-            className="w-full bg-orange-600 text-white cursor-pointer py-3 rounded-lg hover:bg-orange-700 transition-colors disabled:bg-orange-400"
-          >
-            {isSubmitting ? 'Creating account...' : 'Sign Up'}
-          </button>
+            <div>
+              <label className="block text-gray-700 mb-2 font-medium">
+                Password
+              </label>
+              <div className="relative">
+                <FaLock className="absolute top-3 left-3 text-gray-400" />
+                <input
+                  type="password"
+                  className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
+                    errors[1] ? "border-red-500" : "border-gray-300"
+                  } focus:outline-none focus:ring-2 focus:ring-orange-500`}
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setpassword(e.target.value)}
+                />
+              </div>
+              {errors[1] && (
+                <p className="text-red-500 text-sm mt-1">{errors[1]}</p>
+              )}
+            </div>
 
-          <div className="text-center text-sm text-gray-600 mt-4">
-            Already have an account?{' '}
-            <Link
-              to="/Login"
-              className="text-orange-600 hover:text-orange-700 font-medium"
+            <button
+              onClick={() => setIsSubmitting(true)}
+              className="w-full bg-orange-600 text-white cursor-pointer py-3 rounded-lg hover:bg-orange-700 transition-colors disabled:bg-orange-400"
             >
-              <FaSignInAlt className="inline mr-1" />
-              Login here
-            </Link>
-          </div>
-        </form>
+              {isSubmitting ? "Creating account..." : "Sign Up"}
+            </button>
+
+            <div className="text-center text-sm text-gray-600 mt-4">
+              Already have an account?{" "}
+              <Link
+                to="/Login"
+                className="text-orange-600 hover:text-orange-700 font-medium"
+              >
+                <FaSignInAlt className="inline mr-1" />
+                Login here
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
       {/* <div className="flex flex-col justify-center items-center">
         <form
           onSubmit={(e) => hadlesubmit(e)}
