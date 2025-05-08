@@ -6,7 +6,7 @@ const FoodSlider = () => {
   const categories = [
     {
       id: 1,
-      image: "/public/bb.jpg",
+      image: "bb.jpg",
       title: "Pizza",
       subtitle: "Delicious Italian Classics",
     },
