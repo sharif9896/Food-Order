@@ -27,9 +27,9 @@ const Signup = () => {
       console.log(response.data);
       toast.success(response.data.message);
       navigate("/Login");
-      setTimeout(() => {
-        window.location.href = "/Login";
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.href = "/Login";
+      // }, 1000);
     } catch (e) {
       console.log(e);
       setErrors(e.response.data.error);
