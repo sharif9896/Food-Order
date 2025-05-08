@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import "./FoodOrder.css";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -128,17 +128,23 @@ const FoodOrder = () => {
         toast.success(foodss.data.message);
         window.location.href = "/";
 
-        try {
-          const response = await axios.get(
-            `http://localhost:3956/api/user/logout`
-          );
-          // toast.success(response.data.message);
-          localStorage.removeItem("user");
-          // setIsLoggedIn(false);
-        } catch (error) {
-          console.log("Error in logging out ", error);
-          // toast.error(error.response.data.error);
-        }
+        useEffect(() => {
+          const user = localStorage.getItem("user");
+          const log = async () => {
+            try {
+              const response = await axios.get(
+                `http://localhost:3956/api/user/logout`
+              );
+              // toast.success(response.data.message);
+              localStorage.removeItem("user");
+              // setIsLoggedIn(false);
+            } catch (error) {
+              console.log("Error in logging out ", error);
+              // toast.error(error.response.data.error);
+            }
+          };
+          log();
+        }, [foodss.data.message]);
       };
       meth();
       console.log("Order placed:", orderDetails);
